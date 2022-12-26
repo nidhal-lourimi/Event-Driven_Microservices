@@ -3,8 +3,8 @@ package com.nidhallourimi.contoller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/products")
+@RestController
+@RequestMapping("products")
 public class ProductsController {
     @PostMapping
     public String createProduct(){
