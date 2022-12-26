@@ -7,10 +7,14 @@
   <groupId>com.nidhallourimi</groupId>
   <artifactId>app</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <name>Event-Driven_Microservices</name>
   <!-- FIXME change it to the project's website -->
   <url>https://github.com/nidhal-lourimi</url>
+  <modules>
+    <module>product</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
