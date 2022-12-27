@@ -1,0 +1,18 @@
+services:
+  axonserver:
+    image: axoniq/axonserver:latest-jdk-11-dev
+    hostname: axonserver
+    volumes:
+      - ./axonserver/data:/axonserver/data
+      - ./axonserver/events:/axonserver/events
+      - ./axonserver/config:/axonserver/config
+      - ./axonserver/plugins:/axonserver/plugins
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - axon-demo
+networks:
+    axon-demo:
+      name: axon-demo
