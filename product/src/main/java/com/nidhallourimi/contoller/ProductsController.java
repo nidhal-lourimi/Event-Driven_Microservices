@@ -1,5 +1,6 @@
 package com.nidhallourimi.contoller;
 
+import com.nidhallourimi.model.CreateProductRestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,8 @@ public class ProductsController {
     @Autowired
     Environment environment;
     @PostMapping
-    public String createProduct(){
-        return "HTTP POSt Handled";
+    public String createProduct(@RequestBody CreateProductRestModel productRestModel){
+        return "HTTP POSt Handled and your product titles is "+ productRestModel.getTitle();
     }
 
     @GetMapping
