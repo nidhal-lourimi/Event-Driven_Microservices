@@ -2,14 +2,24 @@ package com.nidhallourimi.command;
 
 import com.nidhallourimi.core.events.ProductCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Aggregate
+/*@Profile("command")*/
 public class CreateProductAggregate {
+    @AggregateIdentifier
+    private  String productId;
+    private  String title;
+    private  BigDecimal price;
+    private  Integer quantity;
     public CreateProductAggregate() {
     }
     @CommandHandler
@@ -26,6 +36,16 @@ public class CreateProductAggregate {
         BeanUtils.copyProperties(productCommand,productCreatedEvent);
         AggregateLifecycle.apply(productCreatedEvent);
         //when we call apply method on aggregate it will dispatch event to all events handlers the  aggregate state will be updated by new info
-        // this events will b scheduled for publication to others events
+        // this events will b scheduled for publication to others events and persist in the event store
     }
+    @EventSourcingHandler
+    //initialize the current state of the aggregate state with the latest info
+    public void on (ProductCreatedEvent productCreatedEvent){
+        this.productId=productCreatedEvent.getProductId();
+        this.title=productCreatedEvent.getTitle();
+        this.price=productCreatedEvent.getPrice();
+        this.quantity=productCreatedEvent.getQuantity();
+
+    }
+
 }
