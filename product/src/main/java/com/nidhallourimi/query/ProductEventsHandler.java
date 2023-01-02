@@ -1,8 +1,8 @@
 package com.nidhallourimi.query;
 
-import com.nidhallourimi.Repository.ProductsRepository;
+import com.nidhallourimi.core.data.ProductsRepository;
 import com.nidhallourimi.core.events.ProductCreatedEvent;
-import com.nidhallourimi.data.ProductEntity;
+import com.nidhallourimi.core.data.ProductEntity;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

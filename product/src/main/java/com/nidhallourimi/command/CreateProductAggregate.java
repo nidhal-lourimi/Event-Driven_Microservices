@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 
 @Aggregate

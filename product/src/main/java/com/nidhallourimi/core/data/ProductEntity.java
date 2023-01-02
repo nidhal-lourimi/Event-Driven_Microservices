@@ -1,4 +1,4 @@
-package com.nidhallourimi.data;
+package com.nidhallourimi.core.data;
 
 import lombok.*;
 import org.hibernate.Hibernate;

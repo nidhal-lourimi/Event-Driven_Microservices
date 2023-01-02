@@ -1,7 +1,8 @@
-package com.nidhallourimi.model;
+package com.nidhallourimi.command.rest;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.math.BigDecimal;
 
 @Data
