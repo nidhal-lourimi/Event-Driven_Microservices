@@ -25,6 +25,7 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
     public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(@Nonnull List<? extends CommandMessage<?>> messages) {
         return (index,command)->{
             log.info("intercepted command = "+command.getPayload());
+            //check if you intercepted the right command
             if (CreateProductCommand.class.equals(command.getPayload())){
                 CreateProductCommand castCommand = (CreateProductCommand) command.getPayload();
                 //validate create Product Command
