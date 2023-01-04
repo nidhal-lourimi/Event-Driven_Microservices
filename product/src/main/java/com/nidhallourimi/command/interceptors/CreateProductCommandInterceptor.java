@@ -1,6 +1,8 @@
 package com.nidhallourimi.command.interceptors;
 
 import com.nidhallourimi.command.CreateProductCommand;
+import com.nidhallourimi.command.data.ProductLookupEntity;
+import com.nidhallourimi.command.data.ProductLookupRepository;
 import lombok.extern.log4j.Log4j2;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
@@ -13,7 +15,12 @@ import java.util.function.BiFunction;
 @Log4j2
 @Component
 public class CreateProductCommandInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
-    @Nonnull
+    private final ProductLookupRepository productLookupRepository;
+
+    public CreateProductCommandInterceptor(ProductLookupRepository productLookupRepository) {
+        this.productLookupRepository = productLookupRepository;
+    }
+
     @Override
     public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(@Nonnull List<? extends CommandMessage<?>> messages) {
         return (index,command)->{
@@ -27,6 +34,12 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
                 if(castCommand.getTitle()==null || castCommand.getTitle().isBlank()){
                     throw  new IllegalArgumentException("title cannot be empty");
                 }
+                ProductLookupEntity productLookupEntity = productLookupRepository.findByProductIdOrTitle(castCommand.getProductId(), castCommand.getTitle());
+                if(productLookupEntity!=null){
+                    throw new IllegalStateException(String.format("product with productId %s or title %s already exist ",castCommand.getTitle(),castCommand.getTitle()));
+                }
+
+
             }
             return command;
         };
