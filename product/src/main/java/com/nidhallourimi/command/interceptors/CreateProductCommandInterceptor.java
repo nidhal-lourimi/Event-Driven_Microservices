@@ -22,27 +22,30 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
     }
 
     @Override
-    public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(@Nonnull List<? extends CommandMessage<?>> messages) {
-        return (index,command)->{
+    public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(
+            List<? extends CommandMessage<?>> messages) {
+        return (index,command) -> {
             log.info("intercepted command = "+command.getPayload());
+            log.info("intercepted command type "+ command.getPayloadType());
             //check if you intercepted the right command
-            if (CreateProductCommand.class.equals(command.getPayload())){
-                CreateProductCommand castCommand = (CreateProductCommand) command.getPayload();
+            if (CreateProductCommand.class.equals(command.getPayloadType())){
+                CreateProductCommand createProductCommand = (CreateProductCommand) command.getPayload();
+                ProductLookupEntity productLookupEntity = productLookupRepository.findByProductIdOrTitle(createProductCommand.getProductId(), createProductCommand.getTitle());
                 //validate create Product Command
-                if(castCommand.getPrice().compareTo(BigDecimal.valueOf(0L))<=0L){
+                if(createProductCommand.getPrice().compareTo(BigDecimal.valueOf(0L))<=0L){
                     throw new IllegalArgumentException("price cannot be less or equal to zero");
                 }
-                if(castCommand.getTitle()==null || castCommand.getTitle().isBlank()){
+                if(createProductCommand.getTitle()==null || createProductCommand.getTitle().isBlank()){
                     throw  new IllegalArgumentException("title cannot be empty");
                 }
-                ProductLookupEntity productLookupEntity = productLookupRepository.findByProductIdOrTitle(castCommand.getProductId(), castCommand.getTitle());
                 if(productLookupEntity!=null){
-                    throw new IllegalStateException(String.format("product with productId %s or title %s already exist ",castCommand.getTitle(),castCommand.getTitle()));
+                    throw new IllegalStateException(String.format("product with productId %s or title %s already exist ",createProductCommand.getProductId(),createProductCommand.getTitle()));
                 }
 
-
             }
+
             return command;
+
         };
     }
 }
