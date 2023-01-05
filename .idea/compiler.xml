@@ -8,9 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="apiGateway" />
-        <module name="discoveryServer" />
+        <module name="orders-service" />
         <module name="product" />
+        <module name="discoveryServer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="order" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
