@@ -20,7 +20,7 @@ public class ProductLookupEventsHandler {
     }
 
     @EventHandler
-    public void on (ProductCreatedEvent event){
+    public void on (ProductCreatedEvent event) throws Exception {
         ProductLookupEntity productLookupEntity=new ProductLookupEntity(event.getProductId(),event.getTitle());
         //you can add a check here(if product record exit or not)
         try {
@@ -28,6 +28,7 @@ public class ProductLookupEventsHandler {
         }catch (IllegalArgumentException e){
             e.printStackTrace();
         }
+      /*  if (true) throw new  Exception("forcing an exception in the event handler class");*/
     }
 
     //method to handle the  illegal argument exception thrown by one of many events handler method
@@ -37,8 +38,10 @@ public class ProductLookupEventsHandler {
 
     }
     @ExceptionHandler(resultType = Exception.class)
-    public void handle(Exception exception){
+    public void handle(Exception exception) throws Exception {
+        throw exception;
 
     }
+
 
 }
