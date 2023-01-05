@@ -24,7 +24,7 @@ public class CreateProductAggregate {
     public CreateProductAggregate() {
     }
     @CommandHandler
-    public CreateProductAggregate(CreateProductCommand productCommand) {
+    public CreateProductAggregate(CreateProductCommand productCommand) throws Exception {
         //validate create Product Command
         if(productCommand.getPrice().compareTo(BigDecimal.valueOf(0L))<=0L){
             throw new IllegalArgumentException("price cannot be less or equal to zero");
@@ -38,6 +38,9 @@ public class CreateProductAggregate {
         AggregateLifecycle.apply(productCreatedEvent);
         //when we call apply method on aggregate it will dispatch event to all events handlers the  aggregate state will be updated by new info
         // this events will b scheduled for publication to others events and persist in the event store
+        //throwing an exception handler will stop command handler from dispatching the data to the event store even
+        //our exception is after
+    /*    if (true) throw new  Exception("An error took place in CreateProductCommand @CommandHandler exception");*/
     }
     @EventSourcingHandler
     //initialize the current state of the aggregate state with the latest info

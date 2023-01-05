@@ -5,6 +5,7 @@ import com.nidhallourimi.command.data.ProductLookupRepository;
 import com.nidhallourimi.core.events.ProductCreatedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +23,21 @@ public class ProductLookupEventsHandler {
     public void on (ProductCreatedEvent event){
         ProductLookupEntity productLookupEntity=new ProductLookupEntity(event.getProductId(),event.getTitle());
         //you can add a check here(if product record exit or not)
-        productLookupRepository.save(productLookupEntity);
+        try {
+            productLookupRepository.save(productLookupEntity);
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+    }
+
+    //method to handle the  illegal argument exception thrown by one of many events handler method
+    @ExceptionHandler(resultType = IllegalArgumentException.class)
+    public void handleIllegalArgument(IllegalArgumentException exception){
+        throw exception;
+
+    }
+    @ExceptionHandler(resultType = Exception.class)
+    public void handle(Exception exception){
 
     }
 

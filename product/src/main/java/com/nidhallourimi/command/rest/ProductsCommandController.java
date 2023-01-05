@@ -32,11 +32,12 @@ public class ProductsCommandController {
                 .quantity(productRestModel.getQuantity())
                 .build();
         String returnValue = " ";
-        try {
+/*        try {
             returnValue = commandGateway.sendAndWait(createProductCommand);
         }catch (Exception e){
             returnValue =e.getLocalizedMessage();
-        }
+        }*/
+        returnValue = commandGateway.sendAndWait(createProductCommand);
         return returnValue;
     }
 
