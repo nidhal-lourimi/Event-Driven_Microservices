@@ -26,12 +26,9 @@ public class OrderAggregate {
     private OrderStatus orderStatus;
     @CommandHandler
     public OrderAggregate(CreateOrderCommand orderCommand){
-
-
         OrderCreatedEvent orderCreatedEvent=new OrderCreatedEvent();
         BeanUtils.copyProperties(orderCommand,orderCreatedEvent);
         AggregateLifecycle.apply(orderCreatedEvent);
-
     }
 
     @EventSourcingHandler

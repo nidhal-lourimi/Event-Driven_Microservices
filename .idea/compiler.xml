@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="apiGateway" />
         <module name="orders-service" />
+        <module name="core" />
         <module name="product" />
         <module name="discoveryServer" />
       </profile>
@@ -16,5 +17,10 @@
     <bytecodeTargetLevel>
       <module name="order" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="core" options="-parameters" />
+    </option>
   </component>
 </project>

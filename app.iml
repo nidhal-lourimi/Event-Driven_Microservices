@@ -2,9 +2,9 @@
 <module version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/.idea/ZeppelinRemoteNotebooks" />
-      <excludeFolder url="file://$MODULE_DIR$/axonserver/plugins/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
+      <excludeFolder url="file://$MODULE_DIR$/axonserver/plugins/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/ZeppelinRemoteNotebooks" />
     </content>
   </component>
 </module>

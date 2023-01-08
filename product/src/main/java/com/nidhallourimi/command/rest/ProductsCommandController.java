@@ -33,7 +33,8 @@ public class ProductsCommandController {
                 .build();
         String returnValue = " ";
 /*        try {
-            returnValue = commandGateway.sendAndWait(createProductCommand);
+            returnValue = commandGateway.sendAndWait(createProduct
+            Command);
         }catch (Exception e){
             returnValue =e.getLocalizedMessage();
         }*/

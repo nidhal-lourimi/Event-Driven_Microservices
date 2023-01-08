@@ -1,5 +1,6 @@
 package com.nidhallourimi.command;
 
+import com.nidhallourimi.core.commands.ReserveProductCommand;
 import com.nidhallourimi.core.events.ProductCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -41,6 +42,13 @@ public class CreateProductAggregate {
         //throwing an exception handler will stop command handler from dispatching the data to the event store even
         //our exception is after
     /*    if (true) throw new  Exception("An error took place in CreateProductCommand @CommandHandler exception");*/
+    }
+    @CommandHandler
+    public void handle(ReserveProductCommand reserveProductCommand){
+        if (quantity< reserveProductCommand.getQuantity()){
+            throw new IllegalArgumentException("Insufficient number of items in stock");
+        }
+
     }
     @EventSourcingHandler
     //initialize the current state of the aggregate state with the latest info
